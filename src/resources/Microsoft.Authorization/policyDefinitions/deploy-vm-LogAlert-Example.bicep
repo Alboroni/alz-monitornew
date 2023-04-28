@@ -107,7 +107,10 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
         }
         timeAggregation:{
             type:'String'
-            displayName:'timeAggregation'
+            metadata: {
+              displayName: 'TimeAggregation'
+           
+          }
 
 
         }
