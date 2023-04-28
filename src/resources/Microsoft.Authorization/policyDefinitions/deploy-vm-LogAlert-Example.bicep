@@ -95,7 +95,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
             }
             operator: {
                 type: 'String'
-                metadate:{ displayName: 'Operator'}
+                metadata:{ displayName: 'Operator'}
                 allowedvalues:[
                 'Equals'
                 'GreaterThan'
