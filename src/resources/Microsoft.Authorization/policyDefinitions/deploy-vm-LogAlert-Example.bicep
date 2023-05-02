@@ -63,6 +63,16 @@ param parAlertState string = 'true'
 
 param parThreshold string = '1000'
 
+@allowed([
+  'Average'
+  'Count'
+  'Maximum'
+  'Minimum'
+  'Total'
+])
+
+param parTimeAggregation string = 'Average'
+
 param parMonitorDisable string = 'MonitorDisable' 
 
 module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions/managementGroup/deploy.bicep' = {
@@ -109,9 +119,17 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
             type:'String'
             metadata: {
               displayName: 'TimeAggregation'
-           
           }
+          allowedValues:[
+            'Average'
+            'Count'
+            'Maximum'
+            'Minimum'
+            'Total'
 
+          ]
+
+          defaultvalue: parTimeAggregation
 
         }
 
@@ -342,7 +360,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                                         metricMeasureColumn: 'AggregatedValue'
                                                         threshold: '[parameters(\'threshold\')]'
                                                         operator: '[parameters(\'operator\')]'
-                                                        resourceIdColumn: '_resourceId'
+                                                        resourceIdColumn: '_ResourceId'
                                                         timeAggregation: '[parameters(\'timeAggregation\')]'
                                                         dimensions:[
                                                             {
