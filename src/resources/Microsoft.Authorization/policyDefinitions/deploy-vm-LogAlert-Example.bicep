@@ -286,20 +286,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 '$schema': 'https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#'
                                 contentVersion: '1.0.0.0'
                                 parameters: {
-                                    resourceName: {
-                                        type: 'String'
-                                        metadata: {
-                                            displayName: 'resourceName'
-                                            description: 'Name of the resource'
-                                        }
-                                    }
-                                    resourceId: {
-                                        type: 'String'
-                                        metadata: {
-                                            displayName: 'resourceId'
-                                            description: 'Resource ID of the resource emitting the metric that will be used for the comparison'
-                                        }
-                                    }
+                                
                                     severity: {
                                         type: 'String'
                                     }
@@ -418,12 +405,7 @@ module AvailableMemoryAlert '../../arm/Microsoft.Authorization/policyDefinitions
                                 ]
                             }
                             parameters: {
-                                resourceName: {
-                                    value: '[field(\'name\')]'
-                                }
-                                resourceId: {
-                                    value: '[field(\'id\')]'
-                                }
+                              
                                 severity: {
                                     value: '[parameters(\'severity\')]'
                                 }
