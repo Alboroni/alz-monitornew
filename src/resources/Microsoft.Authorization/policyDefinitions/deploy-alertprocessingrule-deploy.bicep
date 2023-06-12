@@ -3,6 +3,19 @@ targetScope = 'managementGroup'
 param parResourceGroupName string = 'AlzMonitoring-rg'
 param parResourceGroupLocation string = 'centralus'
 param parActionGroupEmail string = 'action@mail.com'
+param parAlertSeverity array = [
+  'Sev0'
+  'Sev1'
+  'Sev2'
+  'Sev3'
+  'Sev4'
+]
+
+param parAlertMonitorCondition array = [
+  'Fired'
+  'Resolved'
+]
+
 param policyLocation string = 'centralus'
 param deploymentRoleDefinitionIds array = [
   '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c'
@@ -58,6 +71,24 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
           description: 'Email address to send alerts to'
         }
         defaultValue: parActionGroupEmail
+      }
+
+      ALZMonitorAlertSeverity: {
+        type: 'Array'
+        metadata: {
+          displayName: 'Alert Severity'
+          description: 'Alert Severity to process'
+        }
+        defaultValue: parAlertSeverity
+      }
+
+      ALZMonitorAlertMonitorCondition: {
+        type: 'Array'
+        metadata: {
+          displayName: 'Alert Monitor Condition'
+          description: 'Alert Monitor Condition to process'
+        }
+        defaultValue: parAlertMonitorCondition
       }
       MonitorDisable: {
         type: 'String'
@@ -155,6 +186,12 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                           ALZMonitorActionGroupEmail: {
                             type: 'string'
                           }
+                          ALZMonitorAlertSeverity: {
+                            type: 'array'
+                          }
+                          ALZMonitorAlertMonitorCondition: {
+                            type: 'array'
+                          }
                         }
                         variables: {}
                         resources: [
@@ -194,6 +231,20 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                               scopes: [
                                 '[subscription().Id]'
                               ]
+                              conditions:[
+                                {
+                                  field: 'Severity'
+                                 operator: 'Equals'
+                                  values: '[parameters(\'ALZMonitorAlertSeverity\')]'
+                                }
+                                {
+                                  field: 'MonitorCondition'
+                                  operator: 'Equals'
+                                  values: '[parameters(\'ALZMonitorAlertMonitorCondition\')]'
+                                }
+
+
+                              ]
                               description: 'Alz Alert Processing Rule for Subscription'
                               enabled: true
                               actions: [
@@ -215,6 +266,12 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                         ALZMonitorActionGroupEmail: {
                           value: '[parameters(\'ALZMonitorActionGroupEmail\')]'
                         }
+                        ALZMonitorAlertSeverity: {
+                          value: '[parameters(\'ALZMonitorAlertSeverity\')]'
+                        }
+                        ALZMonitorAlertMonitorCondition: {
+                          value: '[parameters(\'ALZMonitorAlertMonitorCondition\')]'
+                        }
                       }
                     }
                   }
@@ -232,6 +289,12 @@ module AlertProcessingRule '../../arm/Microsoft.Authorization/policyDefinitions/
                 }
                 ALZMonitorActionGroupEmail: {
                   value: '[parameters(\'ALZMonitorActionGroupEmail\')]'
+                }
+                ALZMonitorAlertSeverity: {
+                  value: '[parameters(\'ALZMonitorAlertSeverity\')]'
+                }
+                ALZMonitorAlertMonitorCondition: {
+                  value: '[parameters(\'ALZMonitorAlertMonitorCondition\')]'
                 }
               }
             }
