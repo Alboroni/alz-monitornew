@@ -421,7 +421,7 @@ module VMNetwrokInAlert '../../arm/Microsoft.Authorization/policyDefinitions/man
                                         type:'array'
 
                                     }
-                                    networkInterfaceToInclude: {
+                                    networkInterfacesToInclude: {
                                         type:'array'
 
                                     }

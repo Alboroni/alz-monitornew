@@ -418,7 +418,7 @@ module VMNetworkOutAlert '../../arm/Microsoft.Authorization/policyDefinitions/ma
                                         type:'array'
 
                                     }
-                                    networkInterfaceToInclude: {
+                                    networkInterfacesToInclude: {
                                         type:'array'
 
                                     }
